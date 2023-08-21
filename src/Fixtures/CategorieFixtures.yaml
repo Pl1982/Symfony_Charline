@@ -1,0 +1,4 @@
+App\Entity\Categorie:
+  tag{1..10}:
+    title (unique): <generateTagTitle()>
+    enable: true

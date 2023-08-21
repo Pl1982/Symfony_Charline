@@ -1,0 +1,15 @@
+include:
+  - CategorieFixtures.yaml
+  - UserFixtures.yaml
+
+App\Entity\Article:
+  article{1..50}:
+    title (unique): <words(2, true)>
+    metaTitle (unique): <sentence(5)>
+    metaDescription: <sentence(10)>
+    content: <generateArticleContent()>
+    enable: <boolean()>
+    createdAt: <generateArticleDate()>
+    user: "@user*"  # va choisir aléatoirement un des 10 users de la boucle dans le fichier UserFixtures.yaml -> on doit faire le include en début de fichier
+    categories: "<numberBetween(1, 5)>x @tag*"  # pour piocher plusieurs catégories à rattacher à l'article
+    images: "<numberBetween(1, 3)>x <uploadArticleImage()>" # on upload aléatoirement entre 1 et 3 images sur l'article

@@ -1,0 +1,22 @@
+@mixin flexbox($justify-content: flex-start, $flex-wrap: wrap, $align-items: flex-start, $gap: 0) {
+    display: flex;
+    flex-wrap: $flex-wrap;
+    justify-content: $justify-content;
+    align-items: $align-items;
+    gap: $gap;
+}
+
+@mixin headerBanner(
+    $border-radius: $border-radius,
+    $background: rgba(27, 39, 49, 0.6),
+    $border: 1px solid rgba(255, 255, 255, 0.3),
+    $box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1)
+) {
+    padding: 1em 2em;
+    border-radius: $border-radius;
+    background: $background;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    border: $border;
+    box-shadow: $box-shadow;
+}

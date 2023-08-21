@@ -1,0 +1,36 @@
+<div class="blog-card" id="article-{{ article.id }}">
+	<div class="blog-card-img">
+		<a href="{{ path('app.articles.show', {slug: article.slug}) }}">
+			{% for image in article.images|slice(0,1) %}
+				<img src="{{ vich_uploader_asset(image) }}" alt="{{ article.title }}" loading="lazy">
+			{% else %}
+				<img src="https://picsum.photos/300/300" alt="{{ article.title }}" loading="lazy">
+			{% endfor %}
+		</a>
+	</div>
+	<div class="blog-card-content">
+		<p class="blog-card-content-date">
+			<i class="bi bi-calendar-range-fill"></i>
+			{{ article.createdAt|format_datetime('full', 'none') }}
+		</p>
+		<a href="{{ path('app.articles.show', {slug: article.slug}) }}">
+			<h2 class="blog-card-content-title">{{ article.title|sanitize_html }}</h2>
+		</a>
+		<p class="blog-card-content-desc">{{ article.content|slice(0, 150)|sanitize_html|striptags }}...</p>
+		<em class="blog-card-content-tags text-muted">
+			{% for categorie in article.categories %}
+				#{{ categorie.title }}
+			{% endfor %}
+		</em>
+		<p class="blog-card-content-autor">{{ article.user.fullName }}</p>
+		{% if app.request.get('_route') == 'admin.articles.index' %}
+			<p class="badge fs-6 {{ article.enable ? 'bg-success' : 'bg-danger' }}">
+				{{ article.enable ? 'Actif' : 'Inactif' }}
+			</p>
+			<div class="d-flex justify-content-between">
+				<a href="{{ path('admin.articles.edit', {id: article.id}) }}" class="btn btn-warning">Modifier</a>
+				{% include 'Backend/Article/_deleteForm.html.twig' %}
+			</div>
+		{% endif %}
+	</div>
+</div>

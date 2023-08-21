@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Création d'une catégorie
+    {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('admin') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('admin') }}
+{% endblock %}
+
+{% block body %}
+<section class="container mt-4">
+    <h1 class="text-center">Création d'une catégorie</h1>
+    {% include 'Backend/Categorie/_form.html.twig' with {buttonLabel: 'Créer'} %}
+    <a href="{{ path('admin.categories.index') }}" class="btn btn-primary">Retour à la liste</a>
+</section>
+{% endblock %}

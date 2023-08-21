@@ -1,0 +1,5 @@
+article:
+    admin:
+        heading:
+            create: "Création d'un article"
+            edit: "Modification d'un article"

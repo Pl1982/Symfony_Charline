@@ -1,0 +1,5 @@
+article:
+    admin:
+        heading:
+            create: "Create an Article"
+            edit: "Edit an existing Article"

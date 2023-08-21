@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Admin Articles
+	{{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('admin') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('admin') }}
+{% endblock %}
+
+{% block body %}
+	<section class="container mt-4">
+		<h1 class="text-center">Administration des articles</h1>
+		<a href="{{ path('admin.articles.create') }}" class="btn btn-primary mt-4">Créer un article</a>
+		<div class="blog-list mt-4">
+			{% for article in articles %}
+				{% include 'Components/_articleCard.html.twig' %}
+			{% endfor %}
+		</div>
+	</section>
+{% endblock %}

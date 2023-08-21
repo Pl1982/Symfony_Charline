@@ -1,0 +1,23 @@
+<div class="card mt-2">
+	<p class="card-header">{{ comment.title|sanitize_html }}</p>
+	<div class="card-body blog-card-content">
+		{% for i in range(0, 4) %}
+			{% if comment.note > i %}
+				<i class="bi bi-star-fill"></i>
+			{% else %}
+				<i class="bi bi-star"></i>
+			{% endif %}
+		{% endfor %}
+		<p class="card-text">{{ comment.description|sanitize_html }}</p>
+		<p class="card-text text-muted">{{ comment.user.fullName }}</p>
+		<em class="card-text text-muted">{{ comment.createdAt|ago }}</em>
+		{% if app.request.get('_route') == 'admin.commentaires.index' %}
+			<p class="blog-card-actif {{ comment.enable ? 'text-success' : 'text-danger' }}">{{ comment.enable ? 'Actif' : 'Inactif' }}</p>
+			<div class="form-check form-switch">
+				<input class="form-check-input" type="checkbox" id="switch-actif-comment-{{ comment.id }}" data-id="{{ comment.id }}" {{ comment.enable ? 'checked' }} js-switch-comment>
+				<label class="form-check-label" for="switch-actif-comment-{{ comment.id }}">Actif</label>
+			</div>
+			{% include 'Backend/Commentaires/_deleteForm.html.twig' %}
+		{% endif %}
+	</div>
+</div>

@@ -1,0 +1,42 @@
+<header class="sticky-top">
+	<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="{{ path('app.homepage') }}">My First App Symfony</a>
+			<button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="collapsibleNavId">
+				<ul class="navbar-nav me-auto mt-2 mt-lg-0">
+					<li class="nav-item">
+						<a class="nav-link {{ app.request.get('_route') == 'app.homepage' ? 'active' }}" href="{{ path('app.homepage') }}">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link {{ app.request.get('_route') == 'app.articles.index' ? 'active' }}" href="{{ path('app.articles.index') }}">Articles</a>
+					</li>
+				</ul>
+				<div class="navbar-nav ms-auto">
+					{% if app.user %}
+						{% if is_granted('ROLE_ADMIN') %}
+							<div class="dropdown me-2">
+								<button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Admin
+								</button>
+								<div class="dropdown-menu" aria-labelledby="triggerId">
+									<a class="dropdown-item" href="{{ path('admin.articles.index') }}">Articles</a>
+									<div class="dropdown-divider"></div>
+									<a href="{{ path('admin.categories.index') }}" class="dropdown-item">Catégories</a>
+									<div class="dropdown-divider"></div>
+									<a href="{{ path('admin.users.index') }}" class="dropdown-item">Users</a>
+								</div>
+							</div>
+						{% endif %}
+						<a href="{{ path('app.logout') }}" class="btn btn-danger text-light">Se déconnecter</a>
+					{% else %}
+						<a href="{{ path('app.register') }}" class="btn btn-primary me-2">S'inscrire</a>
+						<a href="{{ path('app.login')}}" class="btn btn-light">Se connecter</a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</nav>
+</header>

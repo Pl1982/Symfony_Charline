@@ -1,0 +1,19 @@
+article:
+    title:
+        label: "Titre:"
+        placeholder: "Titre de votre article"
+
+    metaTitle:
+        label: "Méta Titre:"
+        placeholder: "Méta titre de votre article"
+
+    metaDesc:
+        label: "Méta Description:"
+        placeholder: "Méta description de votre article"
+
+    content:
+        label: "Contenu:"
+        placeholder: "Contenu de votre article"
+
+    enable:
+        label: "Actif"

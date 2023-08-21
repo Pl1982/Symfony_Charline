@@ -1,0 +1,29 @@
+// Import variable
+@import "./_variables.scss";
+
+// Import Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+// Import Bs Icons
+@import "~bootstrap-icons/font/bootstrap-icons.scss";
+
+// Import structure
+@import "./_structure.scss";
+
+// Import mixins
+@import "./_mixins.scss";
+
+// Import Components files
+@import "./Components/_articleCard.scss";
+
+// Import Home style
+@import "./Frontend/Home/_banner.scss";
+
+// Import Slider style
+@import "./Frontend/Articles/slider.scss";
+
+// Import article style
+@import "./Frontend/Articles/articleContent.scss";
+
+// Import article list style
+@import "./Frontend/Articles/articleList.scss";

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Demande de changement de mot de passe
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<section class="container mt-4">
+		{% for flash_error in app.flashes('reset_password_error') %}
+			<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+		{% endfor %}
+		<h1 class="text-center">Demande de changement de votre mot de passe</h1>
+
+		{{ form_start(requestForm, {'attr': {'class': 'form card p-3 w-75 mx-auto mt-4'}}) }}
+		{{ form_row(requestForm.email) }}
+		<div>
+			<small class="text-muted">
+				Entrez votre adresse email, et nous vous enverons un lien de reinitialisation de votre mot de passe.
+			</small>
+		</div>
+
+		<div class="text-center mt-4">
+			<button class="btn btn-primary">Changer mon mot de passe</button>
+		</div>
+		{{ form_end(requestForm) }}
+	</section>
+{% endblock %}

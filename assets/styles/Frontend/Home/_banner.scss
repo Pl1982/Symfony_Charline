@@ -1,0 +1,17 @@
+.banner {
+    height: calc(80vh - 60px);
+    background: top / cover url("../../../images/banner-formations.jpg");
+    @include flexbox(center, "no-wrap", center);
+
+    &.banner-article {
+        height: 80vh;
+    }
+
+    &-header {
+        @include headerBanner();
+
+        h1 {
+            color: $white;
+        }
+    }
+}

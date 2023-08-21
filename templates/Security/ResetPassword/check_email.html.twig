@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Demande de changement mot de passe envoyé
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<section class="container mt-4">
+		<h1 class="text-center">Demande de reinitialisation de mot de passe envoyée</h1>
+		<div class="card p-3 w-75 mx-auto mt-4">
+			<p>Si votre email est relié à un compte, nous venons de vous envoyer un email avec un lien de reinitialisation de votre mot de passe, vous devez cliquer sur le lien et suivre la procédure.</p>
+			<p>
+				<strong>Ce lien expire dans
+					{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</strong>
+			</p>
+			<p class="mt-2">Si vous n'avez pas reçu l'email, vérifiez dans vos spams ou
+				<a href="{{ path('app.reset-password.request') }}" class="btn-link">réessayez</a>
+			</p>
+		</div>
+	</section>
+{% endblock %}

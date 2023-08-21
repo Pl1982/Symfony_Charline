@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Changer votre mot de passe
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<section class="container mt-4">
+		<h1 class="text-center">Changer votre mot de passe</h1>
+
+		{{ form_start(resetForm, {'attr': {'class': 'form card p-3 w-75 mx-auto mt-4'}}) }}
+		{{ form_row(resetForm.plainPassword) }}
+		<div class="text-center">
+			<button class="btn btn-primary">Modifier votre mot de passe</button>
+		</div>
+		{{ form_end(resetForm) }}
+
+	</section>
+{% endblock %}

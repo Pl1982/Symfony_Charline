@@ -5,13 +5,13 @@ namespace App\Form;
 use App\Entity\Categorie;
 use App\Entity\User;
 use App\Search\SearchArticle;
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SearchArticleType extends AbstractType
 {
@@ -29,12 +29,12 @@ class SearchArticleType extends AbstractType
                 'label' => 'Catégories :',
                 'class' => Categorie::class,
                 'choice_label' => 'title',
-                'query_builder' => function(EntityRepository $er): QueryBuilder { // $er pour Entity Repository
+                'query_builder' => function (EntityRepository $er): QueryBuilder { // $er pour Entity Repository
                     return $er->createQueryBuilder('c')
                         ->innerJoin('c.articles', 'a')
-                        ->andWhere('c.enable = true') 
+                        ->andWhere('c.enable = true')
                         ->orderBy('c.title', 'ASC');
-                }, 
+                },
                 'expanded' => true,
                 'multiple' => true,
                 'required' => false,
@@ -43,12 +43,12 @@ class SearchArticleType extends AbstractType
                 'label' => 'Auteurs :',
                 'class' => User::class,
                 'choice_label' => 'fullName',
-                'query_builder' => function(EntityRepository $er): QueryBuilder { // $er pour Entity Repository
+                'query_builder' => function (EntityRepository $er): QueryBuilder { // $er pour Entity Repository
                     return $er->createQueryBuilder('u')
                         ->innerJoin('u.articles', 'a')
                         ->andWhere('a.enable = true')
                         ->orderBy('u.lastName', 'ASC');
-                }, 
+                },
                 'expanded' => true,
                 'multiple' => true,
                 'required' => false,

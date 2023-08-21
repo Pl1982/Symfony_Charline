@@ -5,11 +5,11 @@ namespace App\Controller\Backend;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/users', name: 'admin.users')]
 class UserController extends AbstractController
@@ -63,14 +63,14 @@ class UserController extends AbstractController
             return $this->redirectToRoute('admin.users.index');
         }
 
-        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('token'))) {
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('token'))) {
             if ($user === $this->getUser()) {
                 $this->addFlash('error', 'Vous ne pouvez pas supprimer un compte connecté actuellement');
 
                 return $this->redirectToRoute('admin.users.index');
             }
 
-            if (count($user->getArticles()) > 0) {
+            if (\count($user->getArticles()) > 0) {
                 $this->addFlash('error', 'Vous ne pouvez pas supprimer un utilisateur qui a écrit un ou plusieurs articles');
 
                 return $this->redirectToRoute('admin.users.index');

@@ -18,7 +18,7 @@ class CategorieProvider
             'Javascript',
             'Sass',
             'HTML',
-            'CSS'
+            'CSS',
         ];
 
         // return $tags[0]

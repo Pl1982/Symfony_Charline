@@ -5,12 +5,12 @@ namespace App\Controller\Backend;
 use App\Entity\Article;
 use App\Entity\Commentaire;
 use App\Repository\CommentaireRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/commentaires', name: 'admin.commentaires')]
 class CommentaireController extends AbstractController
@@ -46,7 +46,7 @@ class CommentaireController extends AbstractController
             return $this->redirectToRoute('admin.articles.index');
         }
 
-        if ($this->isCsrfTokenValid('delete' . $commentaire->getId(), $request->request->get('token'))) {
+        if ($this->isCsrfTokenValid('delete'.$commentaire->getId(), $request->request->get('token'))) {
             $this->repo->remove($commentaire);
             $this->addFlash('success', 'Commentaire supprimé avec succès');
 

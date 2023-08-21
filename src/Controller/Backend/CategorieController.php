@@ -5,12 +5,12 @@ namespace App\Controller\Backend;
 use App\Entity\Categorie;
 use App\Form\CategorieType;
 use App\Repository\CategorieRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/categories', name: 'admin.categories')]
 class CategorieController extends AbstractController
@@ -28,7 +28,7 @@ class CategorieController extends AbstractController
         ]);
     }
 
-    #[Route('/create', name: ".create", methods: ['GET', 'POST'])]
+    #[Route('/create', name: '.create', methods: ['GET', 'POST'])]
     public function create(Request $request): Response|RedirectResponse
     {
         $categorie = new Categorie();
@@ -85,7 +85,7 @@ class CategorieController extends AbstractController
             return $this->redirectToRoute('admin.categories.index');
         }
 
-        if ($this->isCsrfTokenValid('delete' . $categorie->getId(), $request->get('token'))) {
+        if ($this->isCsrfTokenValid('delete'.$categorie->getId(), $request->get('token'))) {
             $this->repo->remove($categorie);
 
             $this->addFlash('success', 'Catégorie supprimée avec succès');
@@ -104,7 +104,7 @@ class CategorieController extends AbstractController
         if (!$categorie instanceof Categorie) {
             return new JsonResponse([
                 'status' => 'error',
-                'message' => 'Catégorie non trouvée'
+                'message' => 'Catégorie non trouvée',
             ], 404);
         }
 
@@ -115,7 +115,7 @@ class CategorieController extends AbstractController
         return new JsonResponse([
             'status' => 'success',
             'message' => 'Catégorie mise à jour avec succès',
-            'enable' => $categorie->isEnable()
+            'enable' => $categorie->isEnable(),
         ], 201);
     }
 }

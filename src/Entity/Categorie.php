@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
+use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\CategorieRepository;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
 #[UniqueEntity(fields: ['title'], message: 'Le titre est déjà utilisé par une catégorie')]
@@ -22,8 +22,8 @@ class Categorie
     #[Assert\Length(
         min: 3,
         max: 255,
-        minMessage: "Le titre ne peut pas faire moins de {{ limit }} caractères",
-        maxMessage: "Le titre ne peut pas faire plus de {{ limit }} caractères",
+        minMessage: 'Le titre ne peut pas faire moins de {{ limit }} caractères',
+        maxMessage: 'Le titre ne peut pas faire plus de {{ limit }} caractères',
     )]
     private ?string $title = null;
 

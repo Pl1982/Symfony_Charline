@@ -4,18 +4,16 @@ namespace App\Form;
 
 use App\Entity\Article;
 use App\Entity\Categorie;
-use App\Form\ArticleImageType;
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Vich\UploaderBundle\Form\Type\VichImageType;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ArticleType extends AbstractType
 {
@@ -27,24 +25,24 @@ class ArticleType extends AbstractType
                 'required' => true,
                 'sanitize_html' => true,
                 'attr' => [
-                    'placeholder' => 'article.title.placeholder'
-                ]
+                    'placeholder' => 'article.title.placeholder',
+                ],
             ])
             ->add('metaTitle', TextType::class, [
                 'label' => 'article.metaTitle.label',
                 'required' => true,
                 'sanitize_html' => true,
                 'attr' => [
-                    'placeholder' => 'article.metaTitle.placeholder'
-                ]
+                    'placeholder' => 'article.metaTitle.placeholder',
+                ],
             ])
             ->add('metaDescription', TextType::class, [
                 'label' => 'article.metaDesc.label',
                 'required' => true,
                 'sanitize_html' => true,
                 'attr' => [
-                    'placeholder' => 'article.metaDesc.placeholder'
-                ]
+                    'placeholder' => 'article.metaDesc.placeholder',
+                ],
             ])
             ->add('content', TextareaType::class, [
                 'label' => 'article.content.label',
@@ -53,18 +51,18 @@ class ArticleType extends AbstractType
                 'attr' => [
                     'placeholder' => 'article.content.placeholder',
                     'rows' => 5,
-                ]
+                ],
             ])
             ->add('enable', CheckboxType::class, [
                 'label' => 'article.enable.label',
-                'required' => false
+                'required' => false,
             ])
             ->add('images', CollectionType::class, [
                 'entry_type' => ArticleImageType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'delete_empty' => true,
-                'by_reference' => false
+                'by_reference' => false,
             ])
             ->add('categories', EntityType::class, [
                 'label' => 'Catégories:',
@@ -87,7 +85,7 @@ class ArticleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Article::class,
-            'translation_domain' => 'form'
+            'translation_domain' => 'form',
         ]);
     }
 }

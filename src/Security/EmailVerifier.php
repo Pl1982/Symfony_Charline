@@ -8,8 +8,8 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
 class EmailVerifier
 {
@@ -21,11 +21,12 @@ class EmailVerifier
     }
 
     /**
-     * Send email confirmation
+     * Send email confirmation.
      *
-     * @param string $verifyEmailRouteName
-     * @param User $user
+     * @param string         $verifyEmailRouteName
+     * @param User           $user
      * @param TemplatedEmail $email
+     *
      * @return void
      */
     public function sendEmailConfirmation(string $verifyEmailRouteName, UserInterface $user, TemplatedEmail $email): void
@@ -49,6 +50,7 @@ class EmailVerifier
 
     /**
      * @param User $user
+     *
      * @throws VerifyEmailExceptionInterface
      */
     public function handleEmailConfirmation(Request $request, UserInterface $user): void

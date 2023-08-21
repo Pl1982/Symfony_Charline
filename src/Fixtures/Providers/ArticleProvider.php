@@ -33,7 +33,7 @@ class ArticleProvider
         // dirname -> recupère le dossier parent (chemin absolu)
         // __DIR__ -> récupère le dossier courant (chemin absolu)
         // /*.* -> n'importe quel nom de fichier avec n'importe quelle extension
-        $files = glob(realpath(\dirname(__DIR__) . '/Images/Articles') . '/*.*' );
+        $files = glob(realpath(\dirname(__DIR__).'/Images/Articles').'/*.*');
         // dd($files);
 
         // On choisit une image de manière aléatoire
@@ -43,7 +43,7 @@ class ArticleProvider
         $uploadFile = new UploadedFile($file, $file->getBaseName());
         // dd($uploadFile);
 
-        return (new ArticleImage)
+        return (new ArticleImage())
             ->setImage($uploadFile);
     }
 }

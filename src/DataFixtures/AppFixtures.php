@@ -3,8 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
@@ -28,12 +28,12 @@ class AppFixtures extends Fixture
             ->setLastName('Bertrand')
             ->setRoles(['ROLE_ADMIN'])
             ->setPassword(
-                $this->hasher->hashPassword(new User, 'Test1234')
+                $this->hasher->hashPassword(new User(), 'Test1234')
             );
 
         $manager->persist($user);
 
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 10; ++$i) {
             $user = new User();
 
             $user
@@ -41,7 +41,7 @@ class AppFixtures extends Fixture
                 ->setFirstName("User $i")
                 ->setLastName('Test')
                 ->setPassword(
-                    $this->hasher->hashPassword(new User, 'Test1234')
+                    $this->hasher->hashPassword(new User(), 'Test1234')
                 );
 
             $manager->persist($user);

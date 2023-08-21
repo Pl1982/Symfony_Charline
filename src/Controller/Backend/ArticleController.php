@@ -5,11 +5,11 @@ namespace App\Controller\Backend;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/articles', name: 'admin.articles')]
 class ArticleController extends AbstractController
@@ -88,7 +88,7 @@ class ArticleController extends AbstractController
             return $this->redirectToRoute('admin.articles.index', [], 404);
         }
 
-        if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->get('token'))) {
+        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->get('token'))) {
             $this->articleRepo->remove($article);
 
             $this->addFlash('success', 'Article supprimé avec succès');

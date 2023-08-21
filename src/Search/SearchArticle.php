@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Search;
 
 class SearchArticle
@@ -12,99 +13,99 @@ class SearchArticle
     ) {
     }
 
-        /**
-         * Get the value of title
-         *
-         * @return ?string
-         */
-        public function getTitle(): ?string
-        {
-                return $this->title;
-        }
+    /**
+     * Get the value of title.
+     *
+     * @return ?string
+     */
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
 
-        /**
-         * Set the value of title
-         *
-         * @param ?string $title
-         *
-         * @return self
-         */
-        public function setTitle(?string $title): self
-        {
-                $this->title = $title;
+    /**
+     * Set the value of title.
+     *
+     * @param ?string $title
+     *
+     * @return self
+     */
+    public function setTitle(?string $title): self
+    {
+        $this->title = $title;
 
-                return $this;
-        }
+        return $this;
+    }
 
-        /**
-         * Get the value of tags
-         *
-         * @return ?array
-         */
-        public function getTags(): ?array
-        {
-                return $this->tags;
-        }
+    /**
+     * Get the value of tags.
+     *
+     * @return ?array
+     */
+    public function getTags(): ?array
+    {
+        return $this->tags;
+    }
 
-        /**
-         * Set the value of tags
-         *
-         * @param ?array $tags
-         *
-         * @return self
-         */
-        public function setTags(?array $tags): self
-        {
-                $this->tags = $tags;
+    /**
+     * Set the value of tags.
+     *
+     * @param ?array $tags
+     *
+     * @return self
+     */
+    public function setTags(?array $tags): self
+    {
+        $this->tags = $tags;
 
-                return $this;
-        }
+        return $this;
+    }
 
-        /**
-         * Get the value of authors
-         *
-         * @return ?array
-         */
-        public function getAuthors(): ?array
-        {
-                return $this->authors;
-        }
+    /**
+     * Get the value of authors.
+     *
+     * @return ?array
+     */
+    public function getAuthors(): ?array
+    {
+        return $this->authors;
+    }
 
-        /**
-         * Set the value of authors
-         *
-         * @param ?array $authors
-         *
-         * @return self
-         */
-        public function setAuthors(?array $authors): self
-        {
-                $this->authors = $authors;
+    /**
+     * Set the value of authors.
+     *
+     * @param ?array $authors
+     *
+     * @return self
+     */
+    public function setAuthors(?array $authors): self
+    {
+        $this->authors = $authors;
 
-                return $this;
-        }
+        return $this;
+    }
 
-        /**
-         * Get the value of page
-         *
-         * @return int
-         */
-        public function getPage(): int
-        {
-                return $this->page;
-        }
+    /**
+     * Get the value of page.
+     *
+     * @return int
+     */
+    public function getPage(): int
+    {
+        return $this->page;
+    }
 
-        /**
-         * Set the value of page
-         *
-         * @param int $page
-         *
-         * @return self
-         */
-        public function setPage(int $page): self
-        {
-                $this->page = $page;
+    /**
+     * Set the value of page.
+     *
+     * @param int $page
+     *
+     * @return self
+     */
+    public function setPage(int $page): self
+    {
+        $this->page = $page;
 
-                return $this;
-        }
+        return $this;
+    }
 }

@@ -9,12 +9,12 @@ use App\Form\SearchArticleType;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentaireRepository;
 use App\Search\SearchArticle;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/articles', name: 'app.articles')]
 class ArticleController extends AbstractController
@@ -38,8 +38,8 @@ class ArticleController extends AbstractController
         $articles = $this->repo->findSearch($filter);
         // dump($filter);
 
-        if($request->query->get('ajax')) {  // on regarde si on a le paramètre get ajax -> si oui, ça veut dire qu'on a envoyé une requete en ajax
-            /**
+        if ($request->query->get('ajax')) {  // on regarde si on a le paramètre get ajax -> si oui, ça veut dire qu'on a envoyé une requete en ajax
+            /*
              * On envoie la réponse en JSON avec le nouveau code HTML de chaque composant de la page
              */
             return new JsonResponse([
@@ -97,7 +97,7 @@ class ArticleController extends AbstractController
         return $this->render('Frontend/Article/show.html.twig', [
             'article' => $article,
             'commentaires' => $this->repoComment->findActiveByArticle($article),
-            'form' => $form
+            'form' => $form,
         ]);
     }
 }

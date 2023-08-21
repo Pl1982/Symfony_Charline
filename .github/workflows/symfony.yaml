@@ -1,0 +1,87 @@
+name: CI process Symfony
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  Symfony:
+    name: Symfony 6 (PHP ${{ matrix.php-version }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: [8.2] 
+
+    services:
+      mysql:
+        image: mysql
+        env:
+          MYSQL_ROOT_PASSWORD: password # Remplacez 'password' par le mot de passe réel
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: intl, pdo_mysql, exif, zip, mbstring, curl, xml, iconv, gd, apcu, opcache, json, fileinfo, sodium, pdo
+
+      - name: Checkout PHP version
+        run: php -v
+
+      - name: Validate Composer
+        run: composer validate
+
+      - name: Get Composer Cache
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache Composer
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install Composer dependencies 
+        run: composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader --no-interaction
+
+      - name: Setup nodeJs
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          check-latest: true
+
+      - name: Check requirements Symfony
+        run: vendor/bin/requirements-checker
+
+      - name: Install Yarn dependencies
+        run: yarn install
+
+      - name: Build assets
+        run: yarn run encore production
+
+      - name: Build environnement
+        run: php bin/console about
+
+      - name: PHP Coding Standard
+        run: vendor/bin/php-cs-fixer fix src
+
+      - name: PHP Unit test 
+        run: 
+          php bin/console doctrine:database:create --env=test
+          php bin/console doctrine:schema:update --env=test --force --complete
+          php bin/phpunit --testdox
+
+      - name: Static analyse PHP and twig
+        run: 
+          vendor/bin/phpstan analyse src -l 3 src tests
+

@@ -4,10 +4,10 @@ namespace App\Form;
 
 use App\Entity\Categorie;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class CategorieType extends AbstractType
 {
@@ -20,7 +20,7 @@ class CategorieType extends AbstractType
                 'sanitize_html' => true,
                 'attr' => [
                     'placeholder' => 'Titre de la catégorie',
-                ]
+                ],
             ])
             ->add('enable', CheckboxType::class, [
                 'label' => 'Actif',

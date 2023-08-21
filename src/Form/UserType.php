@@ -3,15 +3,15 @@
 namespace App\Form;
 
 use App\Entity\User;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class UserType extends AbstractType
 {
@@ -27,7 +27,6 @@ class UserType extends AbstractType
             $form = $event->getForm();
             $userToModifed = $event->getData();
             $userConnected = $this->security->getUser();
-
 
             if ($userToModifed === $userConnected) {
                 $form
@@ -61,7 +60,7 @@ class UserType extends AbstractType
                         'choices' => [
                             'Utilisateur' => 'ROLE_USER',
                             'Éditeur' => 'ROLE_EDITOR',
-                            'Administrateur' => 'ROLE_ADMIN'
+                            'Administrateur' => 'ROLE_ADMIN',
                         ],
                         'expanded' => false,
                         'multiple' => true,

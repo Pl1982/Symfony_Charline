@@ -2,13 +2,12 @@
 
 namespace App\Listener;
 
-use Exception;
 use App\Entity\Article;
-use Doctrine\ORM\Events;
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Events;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
 
 #[AsEntityListener(event: Events::preUpdate, method: 'preUpdate', entity: Article::class)]
 #[AsEntityListener(event: Events::postRemove, method: 'postRemove', entity: Article::class)]
@@ -36,19 +35,21 @@ class ArticleImageListener
                             $this->kernel->getProjectDir() . '/public/images/articles/' . $article->getSlug()
                         );
                     } else {
-                        throw new Exception("Image: $path not found");
+                        throw new \Exception("Image: $path not found");
                     }
                 }
             }
 
-            $dir = substr($path, 0, strrpos($path, '/'));
-            $restFiles = glob("$dir/*");
+            if (!empty($path)) {
+                $dir = mb_substr($path, 0, mb_strrpos($path, '/'));
+                $restFiles = glob("$dir/*");
 
-            foreach ($restFiles as $file) {
-                unlink($file);
+                foreach ($restFiles as $file) {
+                    unlink($file);
+                }
+
+                rmdir($dir);
             }
-
-            rmdir($dir);
         }
     }
 

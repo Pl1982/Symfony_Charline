@@ -2,11 +2,15 @@
 
 namespace App\Service;
 
+use App\Entity\ArticleImage;
 use Vich\UploaderBundle\Mapping\PropertyMapping;
 use Vich\UploaderBundle\Naming\DirectoryNamerInterface;
 
 class ArticleDirectoryNamer implements DirectoryNamerInterface
 {
+    /**
+     * @param ArticleImage|array $object
+     */
     public function directoryName(object|array $object, PropertyMapping $mapping): string
     {
         if ($object->getArticle()) {
@@ -19,7 +23,6 @@ class ArticleDirectoryNamer implements DirectoryNamerInterface
 
         return 'articles';
     }
-
 
     private static function slugify(string $text): string
     { // replace non letter or digits by divider

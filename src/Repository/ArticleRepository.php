@@ -4,10 +4,10 @@ namespace App\Repository;
 
 use App\Entity\Article;
 use App\Search\SearchArticle;
-use Doctrine\Persistence\ManagerRegistry;
-use Knp\Component\Pager\PaginatorInterface;
-use Knp\Component\Pager\Pagination\PaginationInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @extends ServiceEntityRepository<Article>
@@ -22,8 +22,7 @@ class ArticleRepository extends ServiceEntityRepository
     public function __construct(
         ManagerRegistry $registry,
         private PaginatorInterface $paginator
-    )
-    {
+    ) {
         parent::__construct($registry, Article::class);
     }
 
@@ -57,13 +56,14 @@ class ArticleRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find the latest article with limit or not and all article or just enable article
+     * Find the latest article with limit or not and all article or just enable article.
      *
-     * @param integer|null $limit
-     * @param boolean $actif
+     * @param int|null $limit
+     * @param bool     $actif
+     *
      * @return array
      */
-    public function findLatest(?int $limit = null, bool $actif = true): array
+    public function findLatest(int $limit = null, bool $actif = true): array
     {
         $query = $this->createQueryBuilder('a')
             ->select('a', 'u', 'c', 'i')
@@ -99,32 +99,33 @@ class ArticleRepository extends ServiceEntityRepository
     }
 
     /**
-     * Function for filter articles in DB
+     * Function for filter articles in DB.
      *
      * @param SearchArticle $search Object of the client search
+     *
      * @return PaginationInterface Of article
      */
     public function findSearch(SearchArticle $search): PaginationInterface
     {
-       $query = $this->createQueryBuilder('a')
-            ->select('a', 'u', 'c', 'i', 'co')
-            ->innerJoin('a.user', 'u')  // innerJoin car un article a forcément un user rattaché
-            ->leftJoin('a.categories', 'c') // on récupère l'article même s'il n'a pas de catégorie rattachée
-            ->leftJoin('a.images', 'i')
-            ->leftJoin('a.commentaires', 'co')
-            ->andWhere('a.enable = true');
-        
-        if(!empty($search->getTitle())) {
+        $query = $this->createQueryBuilder('a')
+             ->select('a', 'u', 'c', 'i', 'co')
+             ->innerJoin('a.user', 'u')  // innerJoin car un article a forcément un user rattaché
+             ->leftJoin('a.categories', 'c') // on récupère l'article même s'il n'a pas de catégorie rattachée
+             ->leftJoin('a.images', 'i')
+             ->leftJoin('a.commentaires', 'co')
+             ->andWhere('a.enable = true');
+
+        if (!empty($search->getTitle())) {
             $query->andWhere('a.title LIKE :title')
                 ->setParameter('title', "%{$search->getTitle()}%");
-        }   
-        
-        if(!empty($search->getTags())) {
+        }
+
+        if (!empty($search->getTags())) {
             $query->andWhere('c.id IN (:tags)')  // compare le c.id aux id présents dans le tableau tags
                 ->setParameter('tags', $search->getTags());
         }
-        
-        if(!empty($search->getAuthors())) {
+
+        if (!empty($search->getAuthors())) {
             $query->andWhere('u.id IN (:users)')
                 ->setParameter('users', $search->getAuthors());
         }
@@ -139,7 +140,6 @@ class ArticleRepository extends ServiceEntityRepository
             )
         ;
     }
-    
 
     //    /**
     //     * @return Article[] Returns an array of Article objects
